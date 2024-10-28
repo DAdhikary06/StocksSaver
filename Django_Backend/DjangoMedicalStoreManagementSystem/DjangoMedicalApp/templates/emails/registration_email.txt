@@ -1,0 +1,8 @@
+<!-- templates/emails/registration_email.txt -->
+Hi {{ first_name }} {{ last_name }},
+
+You have successfully registered as a superuser.
+
+Your username is {{ username }}.
+
+© 2023 Our Service. All rights reserved.

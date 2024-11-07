@@ -1,5 +1,7 @@
 const Config = {
   loginUrl: "http://127.0.0.1:8000/api/gettoken/",
+  refreshApiUrl: "http://127.0.0.1:8000/api/refresh_token/",
+  companyApiUrl : "http://127.0.0.1:8000/api/company/",
   homeUrl: "/home", // Add home URL here
   logoutUrl: "/logout", // Add logout URL here
 };

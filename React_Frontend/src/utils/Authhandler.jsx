@@ -39,6 +39,17 @@ const AuthHandler = {
     localStorage.removeItem('username');
     
   },
+  getLoginToken: () => {
+    return localStorage.getItem('token');
+  },
+  getUsername: () => {
+    return localStorage.getItem('username');
+  },
+  
+  getRefreshToken: () => {
+    return localStorage.getItem('refresh');
+  },
+  
   checkTokenExpiry : () => {
     const token = localStorage.getItem('token');
     if (!token) return true; // If no token, consider it expired

@@ -10,6 +10,7 @@ import PrivateRouteNew from './utils/PrivateRouteNew';
 import Analytics from './pages/Analytics';
 import Config from './utils/Config';
 import LogoutComponent from './pages/LogoutComponet';
+import MedicineAdd from './pages/MedicineAdd';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path={Config.logoutUrl} element={<LogoutComponent/>} />
         <Route path="/home" element={<PrivateRouteNew page={Analytics} additionalProp="value" />} />
         <Route path="/company" element={<PrivateRouteNew page={Company} additionalProp="value" />} />
+        <Route path="/add-medicine" element={<PrivateRouteNew page={MedicineAdd} additionalProp="value" />} />
       </Routes>
     </Router>
   );

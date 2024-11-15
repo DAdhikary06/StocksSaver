@@ -3,11 +3,12 @@ import { Navigate } from "react-router-dom";
 import AuthHandler from "./Authhandler";
 import MainComponent from "../components/MainComponent";
 
-const PrivateRouteNew = ({ page, activepage, children }) => {
+const PrivateRouteNew = ({ page, activepage, children, ...props }) => {
   const isAuthenticated = AuthHandler.loggedIn();
 
   return isAuthenticated ? (
-    <MainComponent page={page} activepage={activepage}>
+
+    <MainComponent page={page} activepage={activepage} {...props}>
       {children}
     </MainComponent>
   ) : (

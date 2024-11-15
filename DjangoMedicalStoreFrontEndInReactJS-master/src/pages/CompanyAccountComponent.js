@@ -95,9 +95,9 @@ class CompanyAccountComponent extends React.Component {
                         <div className="form-group">
                           <div className="form-line">
                             <select
+                              className="form-control"
                               id="transaction_type"
                               name="transaction_type"
-                              className="form-control"
                             >
                               <option value="1">Debit</option>
                               <option value="2">Credit</option>

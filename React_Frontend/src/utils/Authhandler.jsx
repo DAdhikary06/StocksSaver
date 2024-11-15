@@ -1,6 +1,7 @@
 // AuthHandler.js
 import axios from 'axios';
 import Config from './Config';
+import { useNavigate } from 'react-router-dom';
 
 const AuthHandler = {
   login: (username, password, callback) => {
@@ -33,12 +34,6 @@ const AuthHandler = {
   loggedIn: () => {
     return !!localStorage.getItem('token') && !!localStorage.getItem('refresh');
   },
-  logoutUser: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh');
-    localStorage.removeItem('username');
-    
-  },
   getLoginToken: () => {
     return localStorage.getItem('token');
   },
@@ -50,6 +45,12 @@ const AuthHandler = {
     return localStorage.getItem('refresh');
   },
   
+  logoutUser: () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('username');
+    
+  },
   checkTokenExpiry : () => {
     const token = localStorage.getItem('token');
     if (!token) return true; // If no token, consider it expired
@@ -58,8 +59,13 @@ const AuthHandler = {
     // atob() is a built-in function to decode a base64 encoded string
     const jwt = JSON.parse(atob(tokenArray[1])); // Parse the payload from the token
     const expire = jwt?.exp ? jwt.exp * 1000 : false; // Convert seconds to milliseconds
-    return expire ? Date.now() > expire : false; // Check if token is expired
-    // console.log('Token expiry check:', Date.now(), expire, time);
+    const isExpired = expire ? Date.now() > expire : false; // Check if token is expired
+    
+    // if (isExpired) {
+    //   AuthHandler.logoutUser();
+    // }
+
+    return isExpired;
   },
 };
 

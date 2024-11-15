@@ -11,6 +11,14 @@ import Analytics from './pages/Analytics';
 import Config from './utils/Config';
 import LogoutComponent from './pages/LogoutComponet';
 import MedicineAdd from './pages/MedicineAdd';
+import CompanyDetails from './pages/CompanyDetails';
+import CompanyAddBank from './pages/CompanyAddBank';
+import CompanyEditBank from './pages/CompanyEditBank';
+import CompanyAccount from './pages/CompanyAccount';
+import Employee from './pages/Employee';
+import EmployeeDetails from './pages/EmployeeDetails';
+import CustomerRequest from './pages/CustomerRequest';
+
 
 function App() {
   return (
@@ -22,6 +30,14 @@ function App() {
         <Route path="/home" element={<PrivateRouteNew page={Analytics} additionalProp="value" />} />
         <Route path="/company" element={<PrivateRouteNew page={Company} additionalProp="value" />} />
         <Route path="/add-medicine" element={<PrivateRouteNew page={MedicineAdd} additionalProp="value" />} />
+        <Route path="/companydetails/:id" element={<PrivateRouteNew page={CompanyDetails} additionalProp="value" />} />
+        <Route path="/addCompanyBank/:id" element={<PrivateRouteNew page={CompanyAddBank} additionalProp="value" />} />
+        <Route path="/editCompanyBank/:company_id/:id" element={<PrivateRouteNew page={CompanyEditBank} additionalProp="value" />} />
+        <Route path="/manageCompanyAccount" element={<PrivateRouteNew page={CompanyAccount} additionalProp="value" />} />
+        <Route path="/manageEmployee" element={<PrivateRouteNew page={Employee} additionalProp="value" />} />
+        <Route path="/employeeDetails/:id" element={<PrivateRouteNew page={EmployeeDetails} additionalProp="value" />} />
+
+        <Route path="/customerRequest" element={<PrivateRouteNew page={CustomerRequest} additionalProp="value" />} />
       </Routes>
     </Router>
   );

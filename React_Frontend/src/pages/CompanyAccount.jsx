@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 const CompanyAccount = () => {
   const { id } = useParams();
   const apiHandler = APIHandler();
-
   const [formData, setFormData] = useState({
     company_id: "",
     transaction_type: "",
@@ -32,6 +31,7 @@ const CompanyAccount = () => {
 
   const updateDataAgain = async () => {
     const companyAccountData = await apiHandler.fetchAllCompanyAccount();
+    // console.log("Company Account Data", companyAccountData.data.data);
     setCompanyAccountData(companyAccountData.data.data);
   };
 

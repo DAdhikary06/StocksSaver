@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Config from "../utils/Config";
+// import MainComponent from "./MainComponent";
 
-function Navbar() {
+function Navbar({setSidebarOpen}) {
+  
   return (
+    <>
     <nav className="navbar navbar-expand navbar-light navbar-bg">
-      <a className="sidebar-toggle js-sidebar-toggle" >
+      <a className="sidebar-toggle js-sidebar-toggle" onClick={()=>setSidebarOpen(prevState=>!prevState)} >
         <i className="hamburger align-self-center"></i>
       </a>
 
-      <form className="d-none d-sm-inline-block">
+      {/* <form className="d-none d-sm-inline-block">
         <div className="input-group input-group-navbar">
           <input
             type="text"
@@ -35,7 +38,7 @@ function Navbar() {
             </svg>
           </button>
         </div>
-      </form>
+      </form> */}
 
       <div className="navbar-collapse collapse">
         <ul className="navbar-nav navbar-align">
@@ -47,6 +50,7 @@ function Navbar() {
         </ul>
       </div>
     </nav>
+    </>
   );
 }
 

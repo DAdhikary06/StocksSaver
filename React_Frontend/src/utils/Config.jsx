@@ -2,6 +2,10 @@ const Config = {
   loginUrl: "http://127.0.0.1:8000/api/gettoken/",
   refreshApiUrl: "http://127.0.0.1:8000/api/refresh_token/",
   companyApiUrl : "http://127.0.0.1:8000/api/company/",
+  homeApiUrl : "http://127.0.0.1:8000/api/home_api/",
+  medicineApiUrl : "http://127.0.0.1:8000/api/medicine/",
+  medicineNameApiUrl : "http://127.0.0.1:8000/api/medicinebyname/",
+  generateBillApiUrl : "http://127.0.0.1:8000/api/generate_bill_api/",
   customerRequestApiUrl : "http://127.0.0.1:8000/api/customer_request/",
   companyBankApiUrl : "http://127.0.0.1:8000/api/companybank/",
   companyOnly : "http://127.0.0.1:8000/api/companyonly/",
@@ -17,13 +21,13 @@ const Config = {
 };
 
 export const sidebarItems = [
-  { path: "/home", label: "Dashboards" },
+  { path: "/home", label: "Dashboard" },
   { path: "/company", label: "Company" },
-  { path: "/add-medicine", label: "Add Medicine" },
-  { path: "/manage-medicine", label: "Manage Medicine" },
+  { path: "/addMedicine", label: "Add Medicine" },
+  { path: "/manageMedicine", label: "Manage Medicine" },
   { path: "/manageCompanyAccount", label: "Manage Company Account" },
   { path: "/manageEmployee", label: "Manage Employee" },
-  { path: "/generate-bill", label: "Generate Bill" },
+  { path: "/generateBill", label: "Generate Bill" },
   { path: "/customerRequest", label: "Customer Request" },
 ];
 

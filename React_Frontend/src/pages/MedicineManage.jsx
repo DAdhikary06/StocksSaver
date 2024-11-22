@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import AuthHandler from "../utils/Authhandler";
 import APIHandler from "../utils/APIHandler";
 import { toast } from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
-
-const MedicineAdd = () => {
+const MedicineManage = () => {
+  const { id } = useParams();
   const apiHandler = APIHandler();
   const [companylist, setCompanyList] = useState([]);
+  const [medicineDataList, setMedicineDataList] = useState([]);
+  const [total_salt_list, setTotalSaltList] = useState(0);
   const [medicinedetails, setMedicineDetails] = useState([
     { salt_name: "", salt_qty: "", salt_qty_type: "", description: "" },
   ]);
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,26 +34,67 @@ const MedicineAdd = () => {
 
   useEffect(() => {
     AuthHandler.checkTokenExpiry();
-    LoadCompany();
-  }, []);
+    LoadInitialData();
+  }, [id]);
 
-  const LoadCompany = async () => {
-    const companyData = await apiHandler.fetchCompanyOnly();
-    setCompanyList(companyData.data);
+  const LoadInitialData = async () => {
+    const companydata = await apiHandler.fetchCompanyOnly();
+    const medicinedata = await apiHandler.fetchAllMedicine();
+    setCompanyList(companydata.data);
+    setMedicineDataList(medicinedata.data.data);
+  };
+
+  const viewMedicineDetails = (index) => {
+    const medicine = medicineDataList[index];
+
+    // Ensure medicine is defined
+    if (medicine) {
+      setFormData({
+        name: medicine.name,
+        medical_typ: medicine.medical_typ,
+        buy_price: medicine.buy_price,
+        sell_price: medicine.sell_price,
+        c_gst: medicine.c_gst,
+        s_gst: medicine.s_gst,
+        batch_no: medicine.batch_no,
+        shelf_no: medicine.shelf_no,
+        expire_date: medicine.expire_date,
+        mfg_date: medicine.mfg_date,
+        description: medicine.description,
+        in_stock_total: medicine.in_stock_total,
+        qty_in_strip: medicine.qty_in_strip,
+        company_id: medicine.company_id,
+        id: medicine.id,
+      });
+      console.log(medicine.id);
+      // setMedicineId(medicine.medicine_id); // Ensure this is the correct property
+      setTotalSaltList(medicine.medicine_details.length);
+      setMedicineDetails(medicine.medicine_details);
+
+      // console.log(medicine_id);
+    } else {
+      console.error("Medicine not found for index:", index);
+    }
   };
 
   const AddItems = () => {
     setMedicineDetails([
       ...medicinedetails,
-      { salt_name: "", salt_qty: "", salt_qty_type: "", description: "" },
+      {
+        salt_name: "",
+        salt_qty: "",
+        salt_qty_type: "",
+        description: "",
+        id: 0,
+      },
     ]);
   };
 
   const RemoveItems = () => {
-    // Remove the last item from the array
-    if (medicinedetails.length > 1) {
-      setMedicineDetails(medicinedetails.slice(0, -1));
+    if (medicinedetails.length !== total_salt_list) {
+      setMedicineDetails((prevDetails) => prevDetails.slice(0, -1));
     }
+    // console.log(medicinedetails);
   };
 
   const handleChange = (e) => {
@@ -69,8 +114,9 @@ const MedicineAdd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await apiHandler.saveMedicineData(
+      const response = await apiHandler.editMedicineData(
         formData.name,
         formData.medical_typ,
         formData.buy_price,
@@ -85,7 +131,8 @@ const MedicineAdd = () => {
         formData.description,
         formData.in_stock_total,
         formData.qty_in_strip,
-        medicinedetails
+        medicinedetails,
+        formData.id
       );
 
       if (response.data.error) {
@@ -95,6 +142,7 @@ const MedicineAdd = () => {
       } else {
         console.log("Medicine data saved:", response.data);
         toast.success(response.data.message);
+        LoadInitialData();
         // Reset form fields
         setFormData({
           name: "",
@@ -128,7 +176,63 @@ const MedicineAdd = () => {
         <h3 className="mb-3">
           <strong>Add Medicine</strong> Details
         </h3>
-        <div className="col-md-12">
+        <div className="col-md-12 mt-4">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">All Medicine List</h3>
+            </div>
+            <div className="m-1">
+              <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>NAME</th>
+                      <th>Medical Type</th>
+                      <th>Buy Price</th>
+                      <th>Sell Price</th>
+                      <th>Batch No</th>
+                      <th>Shelf No</th>
+                      <th>Expire Date</th>
+                      <th>Mfg Date</th>
+                      <th>In Stock</th>
+                      <th>Company</th>
+                      <th>Added On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {medicineDataList.map((medicine, index) => (
+                      <tr key={medicine.id}>
+                        <td>{medicine.id}</td>
+                        <td>{medicine.name}</td>
+                        <td>{medicine.medical_typ}</td>
+                        <td>{medicine.buy_price}</td>
+                        <td>{medicine.sell_price}</td>
+                        <td>{medicine.batch_no}</td>
+                        <td>{medicine.shelf_no}</td>
+                        <td>{medicine.expire_date}</td>
+                        <td>{medicine.mfg_date}</td>
+                        <td>{medicine.in_stock_total}</td>
+                        <td>{medicine.company.name}</td>
+                        <td>{new Date(medicine.added_on).toLocaleString()}</td>
+                        <td>
+                          <button
+                            className="btn btn-outline-primary"
+                            onClick={() => viewMedicineDetails(index)}
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-12 ">
           <div className="card">
             <div className="card-header">
               <h3 className="card-title">Add Medicine</h3>
@@ -429,7 +533,7 @@ const MedicineAdd = () => {
                 </div>
                 <div className="mt-3">
                   <button type="submit" className="btn btn-primary col-md-12">
-                    Add Medicine
+                    Update Medicine Details
                   </button>
                 </div>
               </form>
@@ -441,4 +545,4 @@ const MedicineAdd = () => {
   );
 };
 
-export default MedicineAdd;
+export default MedicineManage;

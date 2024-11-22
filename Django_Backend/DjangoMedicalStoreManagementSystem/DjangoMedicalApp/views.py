@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
+from django.db.models import Sum, F
 from django.shortcuts import render
-
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
@@ -479,15 +479,30 @@ class HomeApiViewset(viewsets.ViewSet):
         employee_count=Employee.objects.all()
         employee_count_serializer=EmployeeSerializer(employee_count,many=True,context={"request":request})
 
-        bill_details=BillDetails.objects.all()
-        profit_amt=0
-        sell_amt=0
-        buy_amt=0
-        for bill in bill_details:
-            buy_amt=float(buy_amt+float(bill.medicine_id.buy_price))*int(bill.qty)
-            sell_amt=float(sell_amt+float(bill.medicine_id.sell_price))*int(bill.qty)
+        # bill_details=BillDetails.objects.all()
+        # profit_amt=0
+        # sell_amt=0
+        # buy_amt=0
+        # for bill in bill_details:
+        #     buy_amt=float(buy_amt+float(bill.medicine_id.buy_price))*int(bill.qty)
+        #     sell_amt=float(sell_amt+float(bill.medicine_id.sell_price))*int(bill.qty)
 
-        profit_amt=sell_amt-buy_amt
+        # profit_amt=sell_amt-buy_amt
+
+        bill_details = BillDetails.objects.all()
+        profit_amt = 0
+        sell_amt = 0
+        buy_amt = 0
+
+        for bill in bill_details:
+            qty = int(bill.qty)
+            buy_price = float(bill.medicine_id.buy_price)
+            sell_price = float(bill.medicine_id.sell_price)
+
+            buy_amt += buy_price * qty
+            sell_amt += sell_price * qty
+
+        profit_amt = sell_amt - buy_amt
 
 
         customer_request_pending=CustomerRequest.objects.filter(status=False)
@@ -496,49 +511,110 @@ class HomeApiViewset(viewsets.ViewSet):
         customer_request_completed=CustomerRequest.objects.filter(status=True)
         customer_request_completed_serializer=CustomerRequestSerializer(customer_request_completed,many=True,context={"request":request})
 
-        current_date=datetime.today().strftime("%Y-%m-%d")
-        current_date1=datetime.today()
-        current_date_7days=current_date1+timedelta(days=7)
-        current_date_7days=current_date_7days.strftime("%Y-%m-%d")
-        bill_details_today=BillDetails.objects.filter(added_on__date=current_date)
-        profit_amt_today=0
-        sell_amt_today=0
-        buy_amt_today=0
+        # current_date=datetime.today().strftime("%Y-%m-%d")
+        # current_date1=datetime.today()
+        # current_date_7days=current_date1+timedelta(days=7)
+        # current_date_7days=current_date_7days.strftime("%Y-%m-%d")
+        # bill_details_today=BillDetails.objects.filter(added_on__date=current_date)
+        # profit_amt_today=0
+        # sell_amt_today=0
+        # buy_amt_today=0
+        # for bill in bill_details_today:
+        #     buy_amt_today=float(buy_amt_today+float(bill.medicine_id.buy_price))*int(bill.qty)
+        #     sell_amt_today=float(sell_amt_today+float(bill.medicine_id.sell_price))*int(bill.qty)
+
+
+        # profit_amt_today=sell_amt_today-buy_amt_today
+
+
+# Get the current date and the date 7 days from now
+        current_date = datetime.today().date()  # Use .date() to get just the date part
+        current_date_7days = current_date + timedelta(days=7)
+
+        # Query for bill details added today
+        bill_details_today = BillDetails.objects.filter(added_on__date=current_date)
+
+        # Initialize profit, sell, and buy amounts
+        profit_amt_today = 0
+        sell_amt_today = 0
+        buy_amt_today = 0
+
+        # Calculate buy and sell amounts for today's bills
         for bill in bill_details_today:
-            buy_amt_today=float(buy_amt_today+float(bill.medicine_id.buy_price))*int(bill.qty)
-            sell_amt_today=float(sell_amt_today+float(bill.medicine_id.sell_price))*int(bill.qty)
+            qty = int(bill.qty)
+            buy_price = float(bill.medicine_id.buy_price)
+            sell_price = float(bill.medicine_id.sell_price)
 
+            buy_amt_today += buy_price * qty
+            sell_amt_today += sell_price * qty
 
-        profit_amt_today=sell_amt_today-buy_amt_today
+        # Calculate profit amount for today
+        profit_amt_today = sell_amt_today - buy_amt_today
 
 
         medicine_expire=Medicine.objects.filter(expire_date__range=[current_date,current_date_7days])
         medicine_expire_serializer=MedicineSerliazer(medicine_expire,many=True,context={"request":request})
 
-        bill_dates=BillDetails.objects.order_by().values("added_on__date").distinct()
-        profit_chart_list=[]
-        sell_chart_list=[]
-        buy_chart_list=[]
+       
+
+        # Get distinct dates from BillDetails
+        bill_dates = BillDetails.objects.values("added_on__date").distinct()
+
+        profit_chart_list = []
+        sell_chart_list = []
+        buy_chart_list = []
+
+        # Loop through each unique date
         for billdate in bill_dates:
-            access_date=billdate["added_on__date"]
+            access_date = billdate["added_on__date"]
 
-            bill_data=BillDetails.objects.filter(added_on__date=access_date)
-            profit_amt_inner=0
-            sell_amt_inner=0
-            buy_amt_inner=0
+            # Calculate total buy and sell amounts for each date
+            bill_data = BillDetails.objects.filter(added_on__date=access_date)
 
+            # Initialize amounts
+            buy_amt_inner = 0
+            sell_amt_inner = 0
+
+            # Calculate buy and sell amounts for each bill on that date
             for billsingle in bill_data:
-                buy_amt_inner = float(buy_amt_inner + float(billsingle.medicine_id.buy_price)) * int(billsingle.qty)
-                sell_amt_inner = float(sell_amt_inner + float(billsingle.medicine_id.sell_price)) * int(billsingle.qty)
+                qty = int(billsingle.qty)
+                buy_price = float(billsingle.medicine_id.buy_price) if billsingle.medicine_id.buy_price else 0
+                sell_price = float(billsingle.medicine_id.sell_price) if billsingle.medicine_id.sell_price else 0
 
+                buy_amt_inner += buy_price * qty
+                sell_amt_inner += sell_price * qty
+
+            # Calculate profit amount for that date
             profit_amt_inner = sell_amt_inner - buy_amt_inner
 
-            profit_chart_list.append({"date":access_date,"amt":profit_amt_inner})
-            sell_chart_list.append({"date":access_date,"amt":sell_amt_inner})
-            buy_chart_list.append({"date":access_date,"amt":buy_amt_inner})
+            # Append results to the respective lists
+            profit_chart_list.append({"date": access_date, "amt": profit_amt_inner})
+            sell_chart_list.append({"date": access_date, "amt": sell_amt_inner})
+            buy_chart_list.append({"date": access_date, "amt": buy_amt_inner})
 
-        dict_respone={"error":False,"message":"Home Page Data","customer_request":len(customer_request_serializer.data),"bill_count":len(bill_count_serializer.data),"medicine_count":len(medicine_count_serializer.data),"company_count":len(company_count_serializer.data),"employee_count":len(employee_count_serializer.data),"sell_total":sell_amt,"buy_total":buy_amt,"profit_total":profit_amt,"request_pending":len(customer_request_pending_serializer.data),"request_completed":len(customer_request_completed_serializer.data),"profit_amt_today":profit_amt_today,"sell_amt_today":sell_amt_today,"medicine_expire_serializer_data":len(medicine_expire_serializer.data),"sell_chart":sell_chart_list,"buy_chart":buy_chart_list,"profit_chart":profit_chart_list}
-        return  Response(dict_respone)
+        # Prepare the response dictionary
+        dict_response = {
+            "error": False,
+            "message": "Home Page Data",
+            "customer_request": len(customer_request_serializer.data),
+            "bill_count": len(bill_count_serializer.data),
+            "medicine_count": len(medicine_count_serializer.data),
+            "company_count": len(company_count_serializer.data),
+            "employee_count": len(employee_count_serializer.data),
+            "sell_total": sell_amt,  # Ensure these variables are defined earlier in your code
+            "buy_total": buy_amt,
+            "profit_total": profit_amt,
+            "request_pending": len(customer_request_pending_serializer.data),
+            "request_completed": len(customer_request_completed_serializer.data),
+            "profit_amt_today": profit_amt_today,  # Ensure these variables are defined earlier in your code
+            "sell_amt_today": sell_amt_today,  # Ensure these variables are defined earlier in your code
+            "medicine_expire_serializer_data": len(medicine_expire_serializer.data),
+            "sell_chart": sell_chart_list,
+            "buy_chart": buy_chart_list,
+            "profit_chart": profit_chart_list,
+        }
+
+        return Response(dict_response)
     
        
 company_list=CompanyViewSet.as_view({"get":"list"})

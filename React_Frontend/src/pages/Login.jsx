@@ -4,7 +4,7 @@ import '@adminkit/core/dist/css/app.css';
 import { toast } from 'react-hot-toast';
 import AuthHandler from '../utils/Authhandler';
 import Config from '../utils/Config';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -118,7 +118,7 @@ const Login = () => {
                 </div>
               </div>
               <div className="text-center mb-3">
-                Don't have an account? <a href="/pages-sign-up">Sign up</a>
+                Don't have an account? <Link to={'/sign-up'}>Sign up</Link>
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ const Sidebar = ({ sidebarOpen }) => {
     setActiveItem(path);
     // console.log(path);
   };
+  const dashboardItem = sidebarItems.find(item => item.label === "Dashboard");
 
   return (
     <nav
@@ -34,9 +35,9 @@ const Sidebar = ({ sidebarOpen }) => {
                 style={{ height: "100%", overflow: "hidden" }}
               >
                 <div className="simplebar-content pt-4" style={{ padding: 0 }}>
-                  <Link className="sidebar-brand" to="/" style={{fontSize:30}}>
+                  <Link className="sidebar-brand" to={dashboardItem.path} style={{fontSize:30}}>
                     <span className="sidebar-brand-text align-middle">
-                      Stocks
+                      Stock
                     </span>
                     <span className="sidebar-brand-text align-middle text-success">
                       Saver

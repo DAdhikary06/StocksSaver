@@ -173,7 +173,7 @@ const Employee = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>#ID</th>
+                      <th>ID</th>
                       <th>Name</th>
                       <th>Joining Date</th>
                       <th>Phone</th>

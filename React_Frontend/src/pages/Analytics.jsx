@@ -4,9 +4,13 @@ import AuthHandler from "../utils/Authhandler";
 import APIHandler from "../utils/APIHandler";
 import { useState } from "react";
 import Chart from "react-apexcharts";
+import { useNavigate } from "react-router-dom";
+import Company from "./Company";
 
 const Analytics = () => {
+  
   const apiHandler = APIHandler();
+  const navigate = useNavigate();
   const [customer_rqst_data, setCustomer_rqst_data] = useState(0);
   const [bill_count, setBill_count] = useState(0);
   const [medicine_count, setMedicine_count] = useState(0);
@@ -84,6 +88,17 @@ const Analytics = () => {
     fetchHomePageData();
   }, []);
 
+  const redirectCustomerRequest = () => {
+      navigate("/customerRequest");
+  };
+  const redirectMedicinePage = () => {
+    navigate("/manageMedicine");
+  };
+  const redirectCompanyPage = () => {
+    navigate("/company");
+  };
+
+
   const fetchHomePageData = async () => {
     try {
       const homedata = await apiHandler.fetchHomePage();
@@ -149,6 +164,7 @@ const Analytics = () => {
       console.error("Error fetching company data:", error);
     }
   };
+  
   return (
     <>
       <div className="container-fluid p-0">
@@ -162,7 +178,7 @@ const Analytics = () => {
         <div className="home-card">
           <div className="row">
             <div className="col-sm-6 col-xl-3">
-              <div className="card">
+              <div className="card" onClick={redirectCustomerRequest}>
                 <div className="home-card">
                   <div className="card-body">
                     <div className="row">
@@ -198,7 +214,7 @@ const Analytics = () => {
               </div>
             </div>
             <div className="col-sm-6 col-xl-3">
-              <div className="card">
+              <div className="card" onClick={redirectMedicinePage}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col mt-0">
@@ -215,7 +231,7 @@ const Analytics = () => {
               </div>
             </div>
             <div className="col-sm-6 col-xl-3">
-              <div className="card">
+              <div className="card" onClick={redirectCompanyPage}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col mt-0">
@@ -306,7 +322,7 @@ const Analytics = () => {
           </div>
           <div className="row">
             <div className="col-sm-6 col-xl-3">
-              <div className="card">
+              <div className="card" onClick={redirectCustomerRequest}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col mt-0">
@@ -323,7 +339,7 @@ const Analytics = () => {
               </div>
             </div>
             <div className="col-sm-6 col-xl-3">
-              <div className="card">
+              <div className="card" onClick={redirectCustomerRequest}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col mt-0">

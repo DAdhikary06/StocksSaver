@@ -202,6 +202,7 @@ const Company = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
+                      <th>ID</th>
                       <th>Name</th>
                       <th>License No.</th>
                       <th>Address</th>
@@ -215,6 +216,7 @@ const Company = () => {
                   <tbody>
                     {companyData.map((company, index) => (
                       <tr key={index}>
+                        <td>{company.id}</td>
                         <td>{company.name}</td>
                         <td>{company.license_no}</td>
                         <td>{company.address}</td>

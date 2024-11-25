@@ -229,7 +229,7 @@ const CompanyDetails = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>#id</th>
+                      <th>ID</th>
                       <th>Account No.</th>
                       <th>IFSC Code</th>
                       <th>Added On</th>

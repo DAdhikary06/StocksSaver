@@ -193,7 +193,7 @@ const CompanyAccount = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>#ID</th>
+                      <th>ID</th>
                       <th>Company Name</th>
                       <th>Company ID</th>
                       <th>Transaction Type</th>

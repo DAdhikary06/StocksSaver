@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-
 import { toast } from "react-hot-toast";
 import AuthHandler from "../utils/Authhandler";
 import Config from "../utils/Config";
 import { Link, useNavigate } from "react-router-dom";
+import Spinner from "../utils/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [loginStatus, setLoginStatus] = useState(0);
@@ -29,28 +30,28 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (!username || !password) {
         toast.error("Please fill all the fields");
         return;
       } else {
-        // setLoginStatus(1);
         AuthHandler.login(username, password, handleAjaxResponse);
       }
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while logging in.");
+      setLoading(false);
     }
   };
 
   const handleAjaxResponse = (data) => {
+    setLoading(false);
     if (data && data.error) {
-      // setLoginStatus(4);
       toast.error("Invalid login details.");
     } else if (data) {
-      console.log(data);
-      // setLoginStatus(3);
-      toast.success("Login successful!");
+      // console.log(data);
+      toast.success(data.message);
       navigate(Config.homeUrl);
     }
   };
@@ -63,7 +64,7 @@ const Login = () => {
             <div className="d-table-cell align-middle">
               <div className="text-center mt-4">
                 <h1 style={{fontSize:40}}>
-                  <span className="text-primary">Stocks</span>
+                  <span className="text-primary">Stock</span>
                   <span className="text-success">Saver</span>
                 </h1>
                 <p className="lead">Sign in to your account to continue</p>
@@ -135,6 +136,7 @@ const Login = () => {
                         >
                           Sign in
                         </button>
+                        {loading && <Spinner />}
                       </div>
                     </form>
                   </div>

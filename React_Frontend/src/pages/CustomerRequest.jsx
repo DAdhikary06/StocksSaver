@@ -170,7 +170,7 @@ const CustomerRequest = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>#ID</th>
+                      <th>ID</th>
                       <th>Name</th>
                       <th>Phone No.</th>
                       <th>Medicine Details</th>

@@ -400,7 +400,7 @@ const EmployeeDetails = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>#ID</th>
+                      <th>ID</th>
                       <th>Account No.</th>
                       <th>IFSC Code</th>
                       <th>Added On</th>

@@ -50,7 +50,7 @@ const SetNewPassword = () => {
               <div className="d-table-cell align-middle">
                 <div className="text-center mt-4">
                   <h1 style={{ fontSize: 40 }}>
-                    <span className="text-primary">Stocks</span>
+                    <span className="text-primary">Stock</span>
                     <span className="text-success">Saver</span>
                   </h1>
                   <p className="lead">

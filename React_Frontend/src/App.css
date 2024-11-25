@@ -5,6 +5,27 @@
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure overlay is on top of other elements */
+  pointer-events: all; /* Prevent interaction with underlying content */
+}
+/* Loading Square */
+.loading-square {
+  width: 10vmin; /* Responsive size based on viewport width */
+  height: 10vmin; /* Responsive size based on viewport width */
+  
+
+}
 /* .chart{
   box-shadow: 0 0 3px rgba(0,0,0,0.2);
 } */

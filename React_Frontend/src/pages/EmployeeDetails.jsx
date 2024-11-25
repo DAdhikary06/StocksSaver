@@ -213,6 +213,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Employee Name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -227,6 +228,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Joining Date"
                       value={formData.joining_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -241,6 +243,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Phone No."
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -255,6 +258,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Address"
                       value={formData.address}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -285,6 +289,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Salary Date"
                       value={formDataSalary.salary_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -299,6 +304,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Salary Amount"
                       value={formDataSalary.salary_amount}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -358,6 +364,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter Account No."
                       value={formDataBank.bank_account_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -372,6 +379,7 @@ const EmployeeDetails = () => {
                       placeholder="Enter IFSC code"
                       value={formDataBank.ifsc_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

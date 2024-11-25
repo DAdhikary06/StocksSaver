@@ -252,6 +252,7 @@ const MedicineManage = () => {
                       placeholder="Enter your name"
                       value={formData.name}
                       onChange={handleChange}
+                      
                     />
                   </div>
                   <div className="mb-3 col-md-6">

@@ -148,6 +148,7 @@ const MedicineAdd = () => {
                       placeholder="Enter your name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -162,6 +163,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Medicine Type"
                       value={formData.medical_typ}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -176,6 +178,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Buy Price"
                       value={formData.buy_price}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -190,6 +193,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Sell Price"
                       value={formData.sell_price}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -204,6 +208,7 @@ const MedicineAdd = () => {
                       placeholder="Enter C GST"
                       value={formData.c_gst}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -218,6 +223,7 @@ const MedicineAdd = () => {
                       placeholder="Enter S GST"
                       value={formData.s_gst}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -232,6 +238,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Batch No"
                       value={formData.batch_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -246,6 +253,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Shelf No"
                       value={formData.shelf_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -259,6 +267,7 @@ const MedicineAdd = () => {
                       name="expire_date"
                       value={formData.expire_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -272,6 +281,7 @@ const MedicineAdd = () => {
                       name="mfg_date"
                       value={formData.mfg_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -286,6 +296,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Description"
                       value={formData.description}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -300,6 +311,7 @@ const MedicineAdd = () => {
                       placeholder="Enter In Stock Total"
                       value={formData.in_stock_total}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -314,6 +326,7 @@ const MedicineAdd = () => {
                       placeholder="Enter Qty. in Strip"
                       value={formData.qty_in_strip}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">

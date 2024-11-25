@@ -461,6 +461,7 @@ const BillGenerate = () => {
                                             placeholder="Enter Customer Name"
                                             value={formData.customer_name}
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -475,6 +476,7 @@ const BillGenerate = () => {
                                             placeholder="Enter Address"
                                             value={formData.address}
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -489,6 +491,7 @@ const BillGenerate = () => {
                                             placeholder="Enter Customer Phone No"
                                             value={formData.phone}
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -503,6 +506,7 @@ const BillGenerate = () => {
                                             placeholder="Enter Bill ID"
                                             value={formData.bill_id}
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                 </div>

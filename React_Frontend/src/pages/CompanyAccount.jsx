@@ -142,6 +142,7 @@ const CompanyAccount = () => {
                       placeholder="Enter Amount"
                       value={formData.transaction_amt}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -156,6 +157,7 @@ const CompanyAccount = () => {
                       placeholder="Enter Transaction Date"
                       value={formData.transaction_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -170,6 +172,7 @@ const CompanyAccount = () => {
                       placeholder="Enter Payment Mode"
                       value={formData.payment_mode}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

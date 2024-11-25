@@ -1,36 +1,53 @@
-// AuthHandler.js
 import axios from 'axios';
 import Config from './Config';
-import { useNavigate } from 'react-router-dom';
 
 const AuthHandler = {
-  login: (username, password, callback) => {
-    axios
-      .post(Config.loginUrl, { username, password })
-      .then((response) => {
-        console.log(response.data);
-        if (response.status === 200) {
-          localStorage.setItem('token', response.data.access);
-          localStorage.setItem('refresh', response.data.refresh);
-          localStorage.setItem('username', response.data.username);
-          callback({ error: false, message: 'Login Successful...' });
-        }
-      })
-      .catch((error) => {
-        let errorMessage = 'Error During Login. Invalid Login Details.';
-        if (error.response) {
-          // Server responded with a status other than 200 range
-          errorMessage = error.response.data.message || errorMessage;
-        } else if (error.request) {
-          // Request was made but no response received
-          errorMessage = 'Network error. Please try again later.';
-        }
-        callback({
-          error: true,
-          message: 'Error During Login Invalid Login Details..',
-        });
+  login: async (username, password, callback) => {
+    try {
+      const response = await axios.post(Config.loginUrl, { username, password });
+      console.log(response.data);
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.access);
+        localStorage.setItem('refresh', response.data.refresh);
+        localStorage.setItem('username', response.data.username);
+        callback({ error: false, message: 'Login Successful...' });
+      }
+    } catch (error) {
+      let errorMessage = 'Error During Login. Invalid Login Details.';
+      if (error.response) {
+        // Server responded with a status other than 200 range
+        errorMessage = error.response.data.message || errorMessage;
+      } else if (error.request) {
+        // Request was made but no response received
+        errorMessage = 'Network error. Please try again later.';
+      }
+      callback({
+        error: true,
+        message: errorMessage,
       });
+    }
   },
+
+  register: async (formData, callback) => {
+    try {
+      const response = await axios.post(Config.registerUrl, formData);
+
+      if (response.status === 201) {
+        callback({ error: false, message: 'Registration Successful...' });
+      }
+      console.log(response.data)
+    } catch (error) {
+      // Handle error response
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        return { error: error.response.data }; // Return the error message
+      } else {
+        // The request was made but no response was received
+        return { error: { non_field_errors: ['Network error'] } };
+      }
+    }
+  },
+  
   loggedIn: () => {
     return !!localStorage.getItem('token') && !!localStorage.getItem('refresh');
   },
@@ -49,9 +66,8 @@ const AuthHandler = {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh');
     localStorage.removeItem('username');
-    
   },
-  checkTokenExpiry : () => {
+  checkTokenExpiry: () => {
     const token = localStorage.getItem('token');
     if (!token) return true; // If no token, consider it expired
     const tokenArray = token.split(".");
@@ -61,10 +77,6 @@ const AuthHandler = {
     const expire = jwt?.exp ? jwt.exp * 1000 : false; // Convert seconds to milliseconds
     const isExpired = expire ? Date.now() > expire : false; // Check if token is expired
     
-    // if (isExpired) {
-    //   AuthHandler.logoutUser();
-    // }
-
     return isExpired;
   },
 };

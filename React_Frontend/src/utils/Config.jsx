@@ -1,5 +1,8 @@
 const Config = {
   loginUrl: "http://127.0.0.1:8000/api/gettoken/",
+  registerUrl: "http://127.0.0.1:8000/api/create-superuser/",
+  passwordResetUrl: "http://127.0.0.1:8000/api/password-reset-request/",
+  passwordResetConfirmUrl: "http://127.0.0.1:8000/api/password-reset-confirm/",
   refreshApiUrl: "http://127.0.0.1:8000/api/refresh_token/",
   companyApiUrl : "http://127.0.0.1:8000/api/company/",
   homeApiUrl : "http://127.0.0.1:8000/api/home_api/",

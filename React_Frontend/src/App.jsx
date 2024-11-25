@@ -1,7 +1,6 @@
 // src/App.jsx
 import React from 'react';
 import './App.css';
-import '@adminkit/core/dist/js/app.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
@@ -22,6 +21,8 @@ import EmployeeDetails from './pages/EmployeeDetails';
 import CustomerRequest from './pages/CustomerRequest';
 import MedicineManage from './pages/MedicineManage';
 import BillGenerate from './pages/BillGenerate';
+import ForgotPassword from './pages/ForgotPassword';
+import SetNewPassword from './pages/SetNewPassword';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/sign-up" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/api/password-reset-confirm/:uidb64/:token" element={<SetNewPassword />} />
         <Route path={Config.logoutUrl} element={<LogoutComponent/>} />
         <Route path="/home" element={<PrivateRouteNew page={Analytics} additionalProp="value" />} />
         <Route path="/company" element={<PrivateRouteNew page={Company} additionalProp="value" />} />

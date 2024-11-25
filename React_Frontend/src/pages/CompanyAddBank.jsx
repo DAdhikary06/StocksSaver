@@ -79,6 +79,7 @@ const CompanyAddBank = () => {
                       placeholder="Enter Account No."
                       value={formData.bank_account_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -93,6 +94,7 @@ const CompanyAddBank = () => {
                       placeholder="Enter IFSC Code"
                       value={formData.ifsc_code}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

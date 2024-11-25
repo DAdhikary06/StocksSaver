@@ -107,6 +107,7 @@ const Employee = () => {
                       placeholder="Enter Employee Name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -121,6 +122,7 @@ const Employee = () => {
                       placeholder="Enter Joining Date"
                       value={formData.joining_date}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -135,6 +137,7 @@ const Employee = () => {
                       placeholder="Enter Phone No."
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -149,6 +152,7 @@ const Employee = () => {
                       placeholder="Enter Address"
                       value={formData.address}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

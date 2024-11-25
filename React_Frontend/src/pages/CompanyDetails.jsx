@@ -131,6 +131,7 @@ const CompanyDetails = () => {
                         placeholder="Enter Company Name"
                         defaultValue={formData.name}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-3 col-md-6">
@@ -145,6 +146,7 @@ const CompanyDetails = () => {
                         placeholder="Enter License No."
                         defaultValue={formData.license_no}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-3">
@@ -159,6 +161,7 @@ const CompanyDetails = () => {
                         placeholder="1234 Main St"
                         defaultValue={formData.address}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-3 col-md-6">
@@ -173,6 +176,7 @@ const CompanyDetails = () => {
                         placeholder="Enter Contact No."
                         defaultValue={formData.contact_no}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-3 col-md-6">
@@ -187,6 +191,7 @@ const CompanyDetails = () => {
                         placeholder="Enter Company Email"
                         defaultValue={formData.email}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-3">

@@ -119,6 +119,7 @@ const CustomerRequest = () => {
                       placeholder="Enter Customer Name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -133,6 +134,7 @@ const CustomerRequest = () => {
                       placeholder="Enter Phone No."
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-12">
@@ -147,6 +149,7 @@ const CustomerRequest = () => {
                       placeholder="Enter Medicine Details"
                       value={formData.medicine_details}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>

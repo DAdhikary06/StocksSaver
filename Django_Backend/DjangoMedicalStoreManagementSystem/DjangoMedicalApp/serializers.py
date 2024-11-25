@@ -116,7 +116,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import smart_bytes
 from django.urls import reverse
-from .utils import send_normal_email # Assuming you have a utility function to send emails
+from .utils import send_normal_email,send_reset_password_email # Assuming you have a utility function to send emails
 
 class SuperuserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -175,15 +175,25 @@ class PasswordResetRequestSerializer(serializers.Serializer):
             request = self.context.get('request')
             site_domain = 'localhost:5173'
             relative_link = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
+            print(relative_link)
             relative_link = relative_link.replace('account/', '', 1)  # Update the relative_link to remove the 'account/' prefix
             abslink = f"https://{site_domain}{relative_link}"
-            email_body = f"Hi {user.username}, click on the link below to reset your password.\n{abslink}"
-            data = {
-                'email_body': email_body,
-                'to_email': user.email,
-                'email_subject': 'Reset your password'
+            print(abslink)
+            # email_body = f"Hi {user.username}, click on the link below to reset your password.\n{abslink}"
+            context = {
+            # 'first_name': user.first_name,
+            # 'last_name': user.last_name,
+            'username': user.username,
+            # 'password': password,
+            'reset_link': abslink
             }
-            send_normal_email(data)
+            data = {
+                # 'email_body': email_body,
+                'email_subject': 'Reset your password',
+                'to_email': user.email,
+                'context': context
+            }
+            send_reset_password_email(data)
         
         # Always return success message regardless of whether the email exists
         return super().validate(attrs)

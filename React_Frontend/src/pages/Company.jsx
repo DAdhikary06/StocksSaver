@@ -107,6 +107,7 @@ const Company = () => {
                       placeholder="Enter Company Name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -121,6 +122,7 @@ const Company = () => {
                       placeholder="Enter License No."
                       value={formData.license_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3">
@@ -135,6 +137,7 @@ const Company = () => {
                       placeholder="1234 Main St"
                       value={formData.address}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -149,6 +152,7 @@ const Company = () => {
                       placeholder="Enter Contact No."
                       value={formData.contact_no}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -163,6 +167,7 @@ const Company = () => {
                       placeholder="Enter Company Email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="mb-3">

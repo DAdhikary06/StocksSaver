@@ -630,7 +630,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from django.contrib.auth.tokens import default_token_generator
 # from rest_framework.response import Response
-from DjangoMedicalApp.utils import send_normal_email
+from DjangoMedicalApp.utils import send_normal_email, send_password_reset_confirmation_email
 from DjangoMedicalApp.serializers import SuperuserSerializer, PasswordResetRequestSerializer, \
     PasswordResetConfirmSerializer
 
@@ -657,13 +657,17 @@ class PasswordResetConfirmView(generics.GenericAPIView):
             if default_token_generator.check_token(user, serializer.validated_data['token']):
                 user.set_password(serializer.validated_data['new_password'])
                 user.save()
-                email_body = f"Hi {user.username}, your password has been reset successfully."
-                data = {
-                'email_body': email_body,
-                'to_email': user.email,
-                'email_subject': 'Password reset successful'
+                # email_body = f"Hi {user.username}, your password has been reset successfully."
+                context = {
+                    'username': user.username,
                 }
-                send_normal_email(data)
+                data = {
+                'to_email': user.email,
+                'email_subject': 'Password reset successful',
+                'context': context
+                }
+                # send_normal_email(data)
+                send_password_reset_confirmation_email(data)
                 return Response({"detail": "Password has been reset."}, status=status.HTTP_200_OK)
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             pass

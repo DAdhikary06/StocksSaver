@@ -43,7 +43,7 @@ const EmployeeDetails = () => {
     // console.log(employeeData);
     //   console.log("Fetched employee data:", employeeData.data); // Debugging log
 
-    const employeeSalary = await apiHandler.fetchSalaryEmployee(id);   
+    const employeeSalary = await apiHandler.fetchSalaryEmployee(id);
     // console.log(employeeSalary);
 
     const employeeBank = await apiHandler.fetchBankEmployee(id);
@@ -51,7 +51,7 @@ const EmployeeDetails = () => {
 
     setEmployeeSalaryList(employeeSalary.data);
     setEmployeeBankList(employeeBank.data);
-    
+
     setFormData({
       name: employeeData.data.data.name,
       joining_date: employeeData.data.data.joining_date,
@@ -74,7 +74,7 @@ const EmployeeDetails = () => {
       ...formDataSalary,
       [name]: value,
     });
-    
+
     setFormDataBank({
       ...formDataBank,
       [name]: value,
@@ -272,6 +272,83 @@ const EmployeeDetails = () => {
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
+              <h3 className="card-title">Add Employee Bank</h3>
+            </div>
+            <div className="card-body">
+              <form onSubmit={handleSubmitBank}>
+                <div className="row">
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label" htmlFor="">
+                      Account No.
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="bank_account_no"
+                      name="bank_account_no"
+                      placeholder="Enter Account No."
+                      value={formDataBank.bank_account_no}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label" htmlFor="ifsc_no">
+                      IFSC Code
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="ifsc_no"
+                      name="ifsc_no"
+                      placeholder="Enter IFSC code"
+                      value={formDataBank.ifsc_no}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Add Employee Bank
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-12 mt-4">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Employee Bank</h3>
+            </div>
+            <div className="card-body">
+              <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Account No.</th>
+                      <th>IFSC Code</th>
+                      <th>Added On</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {employeeBankList.map((bank) => (
+                      <tr key={bank.id}>
+                        <td>{bank.id}</td>
+                        <td>{bank.bank_account_no}</td>
+                        <td>{bank.ifsc_no}</td>
+                        <td>{new Date(bank.added_on).toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-12">
+          <div className="card">
+            <div className="card-header">
               <h3 className="card-title">Add Employee Salary</h3>
             </div>
             <div className="card-body">
@@ -338,81 +415,6 @@ const EmployeeDetails = () => {
                         <td>{salary.salary_date}</td>
                         <td className="text-success">{`+${salary.salary_amount}`}</td>
                         <td>{new Date(salary.added_on).toLocaleString()}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-12">
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">Add Employee Bank</h3>
-            </div>
-            <div className="card-body">
-              <form onSubmit={handleSubmitBank}>
-                <div className="row">
-                  <div className="mb-3 col-md-6">
-                    <label className="form-label" htmlFor="">Account No.</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="bank_account_no"
-                      name="bank_account_no"
-                      placeholder="Enter Account No."
-                      value={formDataBank.bank_account_no}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label className="form-label" htmlFor="ifsc_no">
-                     IFSC Code
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="ifsc_no"
-                      name="ifsc_no"
-                      placeholder="Enter IFSC code"
-                      value={formDataBank.ifsc_no}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Add Employee Bank
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-12 mt-4">
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">Employee Bank</h3>
-            </div>
-            <div className="card-body">
-              <div className="table-responsive">
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Account No.</th>
-                      <th>IFSC Code</th>
-                      <th>Added On</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {employeeBankList.map((bank) => (
-                      <tr key={bank.id}>
-                        <td>{bank.id}</td>
-                        <td>{bank.bank_account_no}</td>
-                        <td >{bank.ifsc_no}</td>
-                        <td>{new Date(bank.added_on).toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>

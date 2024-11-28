@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import APIHandler from "../utils/APIHandler";
 
-const AutoCompleteMedicine = ({ showDataInInputs,itemPostion }) => {
+const AutoCompleteMedicine = ({ showDataInInputs,itemPosition }) => {
   const [onFocus, setOnFocus] = useState(false);
   const [datalist, setDatalist] = useState([]);
   const inputData = useRef(null);
@@ -24,12 +24,12 @@ const AutoCompleteMedicine = ({ showDataInInputs,itemPostion }) => {
   const onShowItem = (item) => {
     console.log(item);
     inputData.current.value = item.name
-    showDataInInputs(itemPostion, item);
+    showDataInInputs(itemPosition, item);
     onBlurChange();
   };
 
   return (
-    <React.Fragment>
+    <>
       <input
         type="text"
         id="medicine_name"
@@ -70,7 +70,7 @@ const AutoCompleteMedicine = ({ showDataInInputs,itemPostion }) => {
           </ul>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

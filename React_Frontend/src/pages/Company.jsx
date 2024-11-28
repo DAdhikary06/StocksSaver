@@ -4,8 +4,8 @@ import APIHandler from "../utils/APIHandler";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 const Company = () => {
-
-  const { saveCompanyData, fetchAllCompany } = APIHandler();
+  
+  const apiHandler = APIHandler();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const Company = () => {
 
   const fetchCompanyData = async () => {
     try {
-      const companydata = await fetchAllCompany();
+      const companydata = await apiHandler.fetchAllCompany();
       console.log("Fetched company data:", companydata); // Debugging log
       setCompanyData(companydata.data.data); // Ensure this matches the structure of your data
     } catch (error) {
@@ -53,7 +53,7 @@ const Company = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await saveCompanyData(
+      const response = await apiHandler.saveCompanyData(
         formData.name,
         formData.license_no,
         formData.address,

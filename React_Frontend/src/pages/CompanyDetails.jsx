@@ -245,7 +245,7 @@ const CompanyDetails = () => {
                         <td>{new Date(company.added_on).toLocaleString()}</td>
                         <td className='d-flex gap-2 '>
                           <button className="btn btn-outline-info" onClick={()=>EditCompanyBank(company.id)} >Edit</button>
-                          <button className="btn btn-outline-danger " >Delete</button>
+                          {/* <button className="btn btn-outline-danger " >Delete</button> */}
                         </td>
                       </tr>
                     ))}

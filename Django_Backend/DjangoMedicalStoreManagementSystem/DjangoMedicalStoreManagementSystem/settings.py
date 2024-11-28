@@ -26,9 +26,9 @@ TEMPLATE_DIR = Path.joinpath(BASE_DIR, 'DjangoMedicalApp', 'templates')
 SECRET_KEY = 'django-insecure-y5&)ea+#)-$yn$2k_za)+*33ksr99wvex+893a+y+9lw26g+xe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -58,6 +58,9 @@ MIDDLEWARE = [
     # Adding for helping frontend to connect with backend
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    #for rendering static files deployed on render
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 REST_FRAMEWORK={

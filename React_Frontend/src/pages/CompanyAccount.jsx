@@ -59,7 +59,7 @@ const CompanyAccount = () => {
 
       // Check for error in the response
       if (response.data.error) {
-        console.log("Error saving company data:", response.data.error); // Use response.data.error
+        console.log("Error saving company transaction data:", response.data.error); // Use response.data.error
         toast.error(response.data.message);
         return false;
       } else {
@@ -126,6 +126,7 @@ const CompanyAccount = () => {
                       value={formData.transaction_type}
                       onChange={handleChange}
                     >
+                      <option value="">Select Transaction Type</option>
                       <option value="1">Debit</option>
                       <option value="2">Credit</option>
                     </select>

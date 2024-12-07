@@ -28,7 +28,7 @@ const AutoCompleteMedicine = ({ showDataInInputs,itemPosition }) => {
     onBlurChange();
   };
 
-  return (
+  return ( 
     <>
       <input
         type="text"

@@ -1,14 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AuthHandler from "../utils/Authhandler";
 import APIHandler from "../utils/APIHandler";
-import { useState } from "react";
 import Chart from "react-apexcharts";
 import { useNavigate } from "react-router-dom";
-import Company from "./Company";
 
-const Analytics = () => {
-  
+
+const Analytics = ({ setLowStockMedicines }) => {
   const apiHandler = APIHandler();
   const navigate = useNavigate();
   const [customer_rqst_data, setCustomer_rqst_data] = useState(0);
@@ -22,8 +19,15 @@ const Analytics = () => {
   const [request_completed, setRequest_completed] = useState(0);
   const [profit_amt_today, setProfit_amt_today] = useState(0);
   const [sell_amt_today, setSell_amt_today] = useState(0);
-  const [medicine_expire_serializer_data, setMedicine_expire_serializer_data] =
-    useState(0);
+  const [medicine_expire_serializer_data, setMedicine_expire_serializer_data] = useState(0);
+  const [medicineStock, setMedicineStock] = useState([]);
+
+
+  useEffect(() => {
+    AuthHandler.checkTokenExpiry();
+    fetchHomePageData();
+    fetchMedicineStock();
+  }, []);
 
   const [profitChartOptions, setProfitChartOptions] = useState({
     chart: {
@@ -83,13 +87,8 @@ const Analytics = () => {
     },
   ]);
 
-  useEffect(() => {
-    AuthHandler.checkTokenExpiry();
-    fetchHomePageData();
-  }, []);
-
   const redirectCustomerRequest = () => {
-      navigate("/customerRequest");
+    navigate("/customerRequest");
   };
   const redirectMedicinePage = () => {
     navigate("/manageMedicine");
@@ -98,6 +97,22 @@ const Analytics = () => {
     navigate("/company");
   };
 
+  const fetchMedicineStock = async () => {
+    try {
+      const medicineStockData = await apiHandler.fetchAllMedicine();
+      console.log("Fetched medicine stock data:", medicineStockData.data); // Debugging log
+      setMedicineStock(medicineStockData.data.data);
+      checklowStockMedicine(medicineStockData.data.data); 
+    } catch (error) {
+      console.error("Error fetching medicine stock data:", error);
+    }
+  };
+
+  const checklowStockMedicine = (medicines) => {
+    const lowStockMedicines = medicines.filter((medicine) =>medicine.in_stock_total < 10);
+    setLowStockMedicines(lowStockMedicines);
+    console.log("Low stock medicines:", lowStockMedicines);
+  };
 
   const fetchHomePageData = async () => {
     try {
@@ -164,7 +179,7 @@ const Analytics = () => {
       console.error("Error fetching company data:", error);
     }
   };
-  
+
   return (
     <>
       <div className="container-fluid p-0">
